@@ -1,0 +1,83 @@
+---
+logging:
+  logger-name: "application" # name of the logger
+  console:
+    enabled: true # enable console logging
+  rotating-file:
+    enabled: false # enable rotating files logging
+    path: "adapter.log" # filename to use
+    max-size: 1048576 # maximum size of a single file in bytes
+    max-files: 3 # maximum number of files to keep before starting to remove old data
+plugins:
+  edgex:
+    enabled: true # enable this plugin
+    log-level: Trace
+    args: ["-cp=keeper.http://localhost:59883", "-c", "res", "--registry"]
+  nats:
+    enabled: true # enable this plugin
+    max-queued-messages: 100 # how many messages to buffer before discarding the oldest
+    connect-url: "nats://localhost:4222" # URL to the NATS server
+    connect-retry-seconds: 5 # number of seconds to wait before trying to re-establish a connection to the server
+    security:
+      security-type: none
+    publish: # Publish the readings to NATS for debugging purposes
+      - profile: ESSReadingProfile
+        subject: "8a6bf8d0-b4cb-40da-9dc9-7609fc6e31fc"
+      - profile: ESSStatusProfile
+        subject: "8a6bf8d0-b4cb-40da-9dc9-7609fc6e31fc"
+      - profile: ESSDiscreteControlProfile
+        subject: "8a6bf8d0-b4cb-40da-9dc9-7609fc6e31fc"
+    subscribe:
+      - profile: ESSControlProfile # Receive the controls through NATS
+        subject: "ae2c3d59-4b6a-43e1-b0e4-ece24eb493df"
+  mqtt:
+    enabled: false # enable this plugin
+    max-queued-messages: 100 # how many messages to buffer before discarding the oldest
+    server-address: "tcp://localhost:59000" # URL to the MQTT broker
+    client-id: "gal" # MQTT client ID
+    connect-retry-delay-ms: 5000 # number of milliseconds to wait before trying to re-establish a connection to the broker
+    security:
+      security-type: none
+    publish: # Publish the readings to NATS for debugging purposes
+      - profile: ESSReadingProfile
+        topic-suffix: "8a6bf8d0-b4cb-40da-9dc9-7609fc6e31fc"
+      - profile: ESSStatusProfile
+        topic-suffix: "8a6bf8d0-b4cb-40da-9dc9-7609fc6e31fc"
+      - profile: ESSDiscreteControlProfile
+        topic-suffix: "8a6bf8d0-b4cb-40da-9dc9-7609fc6e31fc"
+    subscribe:
+      - profile: ESSControlProfile # Receive the controls through NATS
+        topic-suffix: "ae2c3d59-4b6a-43e1-b0e4-ece24eb493df"
+  gridcodes:
+    enabled: true # enable sending commands to the inverter
+    log-level: Info # logging level
+    controller-mrid: "ae2c3d59-4b6a-43e1-b0e4-ece24eb493df" # mRID of the grid code controller
+    inverter-mrid: "8a6bf8d0-b4cb-40da-9dc9-7609fc6e31fc" # mRID of the controlled inverter
+    schedule-tolerance-ms: 5000 # tolerance of the first point in a schedule (in milliseconds)
+    sample-time-ms: 20 # time between two updates of the library
+    measurements-tolerance-ms: 500 # delay after which we explicitely trip if we haven't received any measurements (in milliseconds)
+    send-service-on-transition-only: false # only send the Service value when it changes (useful to avoid sending tons of commands)
+    send-epc-on-transition-only: false # only send the EPC value when it changes (useful to avoid sending tons of commands)
+    inverter-type: ess # type of inverter controlled
+    references:
+      volt: 480 # per-unit voltage reference
+      watt: 40000 # per-unit watt reference
+      var: 40000 # per-unit VAr reference
+    mode:
+      normal-mode: b # normal mode
+      abnormal-mode: three # abnormal mode
+    soc:
+      min-soc: 0.20 # minimum SoC
+      max-soc: 0.98 # maximum SoC
+    user-config:
+      permissive: false # Permissive
+      may-trip: true # Select if a trip command should be sent when the standard says "may trip"
+      dvs: false # Dynamic Voltage Support
+      np-mode-transition-time: 5 # NP mode transition time (in seconds)
+      initial-enter-service: false # Initial Enter Service configuration value
+  modbus-master:
+    enabled: true # enable this plugin
+    thread-pool-size: 1 # number of threads in the pool (defaults to std::thread::hardware_concurrency() if <= 0
+    sessions:
+      - path: "res/cherrington-typhoon-ess-modbus.yml" # file to load, possibly a template
+        overrides: []

@@ -1,0 +1,174 @@
+{
+    "created": 1668094161547,
+    "modified": 1669667369898,
+    "id": "b2ca7922-d1b1-46e2-a26a-d9421ca46a5f",
+    "name": "GAL-Inverter",
+    "manufacturer": "Eaton",
+    "description": "An inverter mapped from the GAL",
+    "model": "GAL-Inverter",
+    "labels": [],
+    "deviceResources": [
+        {
+            "description": "Frequency",
+            "name": "Hz",
+            "isHidden": false,
+            "tag": "",
+            "properties": {
+                "valueType": "Float32",
+                "readWrite": "R",
+                "units": "Hz"
+            },
+            "attributes": {
+                "path": "essReading.readingMMXU.Hz.mag",
+                "profile": "ESSReadingProfile"
+            }
+        },
+        {
+            "description": "Voltage A",
+            "name": "V_a",
+            "isHidden": false,
+            "tag": "",
+            "properties": {
+                "valueType": "Float32",
+                "readWrite": "R",
+                "units": "V"
+            },
+            "attributes": {
+                "path": "essReading.readingMMXU.PhV.phsA.cVal.mag",
+                "profile": "ESSReadingProfile"
+            }
+        },
+        {
+            "description": "Voltage B",
+            "name": "V_b",
+            "isHidden": false,
+            "tag": "",
+            "properties": {
+                "valueType": "Float32",
+                "readWrite": "R",
+                "units": "V"
+            },
+            "attributes": {
+                "path": "essReading.readingMMXU.PhV.phsB.cVal.mag",
+                "profile": "ESSReadingProfile"
+            }
+        },
+        {
+            "description": "Voltage C",
+            "name": "V_c",
+            "isHidden": false,
+            "tag": "",
+            "properties": {
+                "valueType": "Float32",
+                "readWrite": "R",
+                "units": "V"
+            },
+            "attributes": {
+                "path": "essReading.readingMMXU.PhV.phsC.cVal.mag",
+                "profile": "ESSReadingProfile"
+            }
+        },
+        {
+            "description": "Active Power Reading",
+            "name": "W",
+            "isHidden": false,
+            "tag": "",
+            "properties": {
+                "valueType": "Float32",
+                "readWrite": "R",
+                "units": "W"
+            },
+            "attributes": {
+                "path": "essReading.readingMMXU.W.net.cVal.mag",
+                "profile": "ESSReadingProfile"
+            }
+        },
+        {
+            "description": "Reactive Power Reading",
+            "name": "VAr",
+            "isHidden": false,
+            "tag": "",
+            "properties": {
+                "valueType": "Float32",
+                "readWrite": "R",
+                "units": "VAr"
+            },
+            "attributes": {
+                "path": "essReading.readingMMXU.VAr.net.cVal.mag",
+                "profile": "ESSReadingProfile"
+            }
+        },
+        {
+            "description": "State of Charge",
+            "name": "SoC",
+            "isHidden": false,
+            "tag": "",
+            "properties": {
+                "valueType": "Float32",
+                "readWrite": "R",
+                "units": "%"
+            },
+            "attributes": {
+                "path": "essStatus.essStatusZBAT.Soc.mag",
+                "profile": "ESSStatusProfile"
+            }
+        },
+        {
+            "description": "Connection Status",
+            "name": "Conn",
+            "isHidden": false,
+            "tag": "",
+            "properties": {
+                "valueType": "Bool",
+                "readWrite": "R"
+            },
+            "attributes": {
+                "path": "essStatus.essStatusZGEN.eSSEventAndStatusZGEN.GnSynSt.stVal",
+                "profile": "ESSStatusProfile"
+            }
+        },
+        {
+            "description": "Active Power Setpoint",
+            "name": "W_Set",
+            "isHidden": false,
+            "tag": "",
+            "properties": {
+                "valueType": "Float32",
+                "readWrite": "R"
+            },
+            "attributes": {
+                "path": "essControl.essControlFSCC.controlFSCC.controlScheduleFSCH.ValACSG.schpts.ScheduleParameterKind_W_net_mag",
+                "profile": "ESSDiscreteControlProfile"
+            }
+        },
+        {
+            "description": "Reactive Power Setpoint",
+            "name": "VAr_Set",
+            "isHidden": false,
+            "tag": "",
+            "properties": {
+                "valueType": "Float32",
+                "readWrite": "R"
+            },
+            "attributes": {
+                "path": "essControl.essControlFSCC.controlFSCC.controlScheduleFSCH.ValACSG.schpts.ScheduleParameterKind_VAr_net_mag",
+                "profile": "ESSDiscreteControlProfile"
+            }
+        },
+        {
+            "description": "Enter Service",
+            "name": "Enter_Service",
+            "isHidden": false,
+            "tag": "",
+            "properties": {
+                "valueType": "Float32",
+                "readWrite": "R"
+            },
+            "attributes": {
+                "path": "essControl.essControlFSCC.controlFSCC.controlScheduleFSCH.ValACSG.schpts.ScheduleParameterKind_other",
+                "profile": "ESSDiscreteControlProfile"
+            }
+        }
+    ],
+    "deviceCommands": []
+}
