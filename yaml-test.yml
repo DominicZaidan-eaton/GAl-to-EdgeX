@@ -1,0 +1,24 @@
+---
+first:
+  second:
+    mag:
+      key: value
+      another_key: value2
+      one_more_key: value3
+      key4ever: value4
+again:
+  once_more:
+    key: enough
+different:
+  kind:
+    mag:
+      test: nothing
+      tester: nothing
+      key: value
+      testing: nothing
+  hello:
+    its:
+      me:
+        mag:
+          key: value
+          wrong: one

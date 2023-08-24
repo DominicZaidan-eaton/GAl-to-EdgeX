@@ -1,0 +1,4 @@
+# Modules     Version
+Python == 3.11.4
+
+Pyyaml == 6.0.1
